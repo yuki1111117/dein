@@ -3,8 +3,8 @@ let pubSettingJson = {};
  */
 //json2Interface('ranking.json', 'setting.json', '#add_left_html_area', 'left');
 //json2Interface('ranking.json', 'setting.json', '#add_right_html_area', 'right');
-setJson('data0.json', 'dataJson0');
-setJson('data1.json', 'dataJson1');
+setJson('../data/data0.json', 'dataJson0');
+setJson('../data/data1.json', 'dataJson1');
 
 splitter();
 
@@ -28,8 +28,8 @@ function setJson(settingJsonLink, targetId) {
 
 
 function splitter() {
-    json2Interface('data0.json', '#add_left_html_area', '0');
-    json2Interface('data1.json', '#add_right_html_area', '1');
+    json2Interface('../data/data0.json', '#add_left_html_area', '0');
+    json2Interface('../data/data1.json', '#add_right_html_area', '1');
 };
 
 function json2Interface(rankingJsonLink, targetId, layoutName) {
