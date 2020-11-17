@@ -1,0 +1,31 @@
+<!--
+01102 <pre>を使用
+01102 先頭のタグを<textarea>にした
+01102 <textarea>のサイズを変更した
+01102 <pre>廃止　先頭タグを<div>に変更　出力要素をtextareaに変更
+01102 GET RESULT AREA 作成
+01102 入力用のtextareaにid input,出力用のtextareaにid outputを追加
+01102 入力用のtextarea　id get,出力用のtextarea　id set　に変更
+01102 JSで作成したものをそのままGETしようとするも断念　TypeError: Cannot set property 'value' of null
+01102 <script>を外に出した jsファイルも外部ファイルにした appendは通っているけどtextareaの中にあるだけで表示されない
+01102 <div>の中にtextareaを入れたら表示された
+01102 jQueryで追加したtextareaのvalueがgetできないので一旦オブジェクトにしようとする・・やめた
+01102 btnを使ってGETしてみる・・・できた！.clickでもなくdocument readyとかでもなくdocument onでできた
+
+1 JSONファイルを読み込み、textareaの中にJSONファイルの中身をそのまま表示する
+-->
+
+<head>
+    <script src="jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<div id="dataJson0"></div>
+<div id="dataJson1"></div>
+
+<div id="add_left_html_area" class="split_area"></div>
+<div id="add_right_html_area" class="split_area"></div>
+
+
+
+<script type="text/javascript" src="script.js"></script>
