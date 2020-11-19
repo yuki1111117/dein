@@ -3,56 +3,90 @@ let pubSettingJson = {};
  */
 //json2Interface('ranking.json', 'setting.json', '#add_left_html_area', 'left');
 //json2Interface('ranking.json', 'setting.json', '#add_right_html_area', 'right');
-setJson('../data/data0.json', 'dataJson0');
-setJson('../data/data1.json', 'dataJson1');
+/* setJson('../data/data0.json', 'dataJson0');
+setJson('../data/data1.json', 'dataJson1'); */
 
-splitter();
+firstSetup();
 
-function setJson(settingJsonLink, targetId) {
+function firstSetup() {
     $(function () {
-        $('#' + targetId).css('display', 'inline');
-        $('#' + targetId).append('<textarea id="' + targetId + 'Area" rows="24" cols="80"></textarea>');
+        setJson('../data/data0.json', 'dataJson0');
+        json2Interface('../data/data0.json', '#add_left_html_area', '0');
+        setJson('../data/data1.json', 'dataJson1');
+        json2Interface('../data/data1.json', '#add_right_html_area', '1');
+        $('body').append('<div id="add_left_html_area" class="split_area"></div>');
+        $('body').append('<div id="add_right_html_area" class="split_area"></div>');
+    });
+};
+
+function splitter() {
+    $(function () {
+        if (getJsonData('0') === 0) {
+            console.log(getJsonData('test'));
+        }
+        console.log('splitter');
+        console.log(getJsonData('0'));
+        $("#dataJson0").children().remove();
+    });
+};
+
+
+function setJson(jsonLink, elementId) {
+    $(function () {
+        $('body').append('<div id="' + elementId + '"></div>');
+        $('#' + elementId).css('display', 'inline');
+        $('#' + elementId).append('<textarea id="' + elementId + 'Area" rows="24" cols="80"></textarea>');
         $.when(
-                $.getJSON(settingJsonLink)
+                $.getJSON(jsonLink)
             )
             .done((dataJson) => {
-                /*                 let strJson = JSON.stringify(settingJson[0], null, "\t");
-                                let strJsonSquare = [];
-                                strJsonSquare.push(strJson);
-
-                                $('#' + targetId + 'Area').val(strJsonSquare); */
-                json2Form(dataJson, targetId + 'Area');
+                json2Form(dataJson, elementId + 'Area');
             })
+    });
+};
+
+function getJsonData(layoutName) {
+    let result = $(function () {
+        const str = document.getElementById("dataJson" + layoutName + "Area").value;
+        const blob = new Blob([str], {
+            type: 'text/plain'
+        });
+        const reader = new FileReader();
+        reader.onload = function () {
+            console.log(reader.result);
+        };
+        reader.readAsText(blob);
+        result = blob;
+    });
+    console.log(result);
+    return result;
+};
+
+
+
+
+function splitterBtn(layoutName) {
+    $(function () {
+        $(document).on('click', 'button[id="Split_Btn' + layoutName + '"]', function () { //SET DATA Form2Export
+            splitter();
+        });
     });
 }
 
-
-function splitter() {
-    json2Interface('../data/data0.json', '#add_left_html_area', '0');
-    json2Interface('../data/data1.json', '#add_right_html_area', '1');
-};
-
-function json2Interface(rankingJsonLink, targetId, layoutName) {
+function json2Interface(rankingJsonLink, elementId, layoutName) {
     $(function () {
         $.when(
                 $.getJSON(rankingJsonLink),
                 $.getJSON(rankingJsonLink)
             )
             .done((rankJson) => {
-                interface(rankJson[0], targetId, layoutName);
-                //   settingInterface(json2[0], layoutName);
-                //  const combinedResults = [...json1, ...json2];
-                //console.log(combinedResults);
-                // console.log(json1[0]);
+                interface(rankJson[0], elementId, layoutName);
             })
     });
 };
 
-function interface(rankingJson, targetId, layoutName) {
-    createHtml(targetId, layoutName); //表示するHTMLの作成
-    //json2Form(rankingJson, 'ranking' + layoutName); //#rankingにjsonをSETする
-    //json2Form(settingJson, 'setting' + layoutName);
-    //form2Form(layoutName); //SET2Formボタンの設定
+function interface(rankingJson, elementId, layoutName) {
+    createHtml(elementId, layoutName); //表示するHTMLの作成
     form2Export(layoutName); //Form2Formボタンの設定
     focusAllSelect(layoutName); //全選択の設定
     textarea2ClipBoard(layoutName); //コピーの設定
@@ -64,21 +98,20 @@ function interface(rankingJson, targetId, layoutName) {
     //change2SaveJson(rankingJson, layoutName);
     json2Table(rankingJson, 'rankingTable', layoutName);
     //json2Table(settingJson, 'settingTable', layoutName);
+    splitterBtn(layoutName);
 };
+
 //settingJson[0].count
 /*
 01103 JSONをまずは取り出そうと昨日は色々した　ローカルで動くようにしたい
 01107 名前をつけてスプレッドレイアウトの２つ目にレイアウトに対応したい。。できたかな
 */
-function json2Form(json, targetId) {
+function json2Form(json, elementId) {
     $(function () { //1 GET JSON from local
         var h = JSON.stringify(json, null, "\t");
-        $('#' + targetId).val(h);
+        $('#' + elementId).val(h);
     });
 };
-
-
-
 
 /*
 01103 Blogを使ってエクスポートをやってみる
@@ -158,46 +191,26 @@ function json2Table(targetJson, targetTable, layoutName) {
 };
 
 /*
-01106 再利用したもの　ボタンを押したらJSONの中身を表示する
-01107 スプリットレイアウトに対応したい。。。できた
-*/
-/* function rankingTableBtn(layoutName) {
-    $(document).on('click', '#rankingTableBtn' + layoutName, function () {
-        json2Table(JSON.parse(document.getElementById("ranking" + layoutName).value || "null", layoutName));
-    });
-};
- */
-
-
-/*
 ROLE:テーブル内のコンテンツをクリックするとvalueのカウントを実行する
 SPEC:setting.jsonのmodeがcounterなら起動する
 01107 押したらカウントする　カウントしたらJSONの表示を更新する　セレクタはクラスでindexで順番を判断する
 01107 名前をつけてスプレッドレイアウトに対応したい。。。
 01115 setting.json lifeが０だったら機能を止める
 */
-function counter(targetTable, targetId, layoutName) {
+function counter(targetTable, elementId, layoutName) {
     $(function () {
         $(document).on('click', '.tr_ele_class' + targetTable + layoutName, function () { //JSONデータを表示した部分をクリックすると
-            const json = JSON.parse(document.getElementById(targetId + layoutName + 'Area').value || "null"); //#rankingからjsonのstringをGET
+            const json = JSON.parse(document.getElementById(elementId + layoutName + 'Area').value || "null"); //#rankingからjsonのstringをGET
             let index = $('.tr_ele_class' + targetTable + layoutName).index(this); //クリックした要素の順番を割り出す
             let varValue = json[0][Object.keys(json[0])[index]][0].value; //valueを取り出す
             //json[0][index][0].value = json[0][index][0].value + 1; //順番に合わせてカウントしたデータ作成
             json[0][Object.keys(json[0])[index]][0].value = varValue + 1;
-            document.getElementById(targetId + layoutName + 'Area').value = JSON.stringify(json, null, "\t"); //JSONデータへ更新カウンターデータを詰め直し
+            document.getElementById(elementId + layoutName + 'Area').value = JSON.stringify(json, null, "\t"); //JSONデータへ更新カウンターデータを詰め直し
             //document.getElementById("ranking" + layoutName).value = varValue; //JSONデータへ更新カウンターデータを詰め直し
             //  countValue = json[index].value;
             json2Table(json, targetTable, layoutName); // JSONを再表示
             // console.log(json[0][index][0].value);
 
-
-            /*             let jsonTxt = JSON.stringify(json[0].test[0]);
-                        console.log(jsonTxt);
-                        let parser = function (k, v) {
-                            return v.toString().indexOf('function') === 0 ? eval('(' + v + ')') : v
-                        };
-                        let fJson = JSON.parse(jsonText, parser);
-                        fJson.function(); */
         });
     });
 };
@@ -205,10 +218,10 @@ function counter(targetTable, targetId, layoutName) {
 /*
 
 */
-function fireFuncJson(targetTable, targetId, layoutName) {
+function fireFuncJson(targetTable, elementId, layoutName) {
     $(function () {
         $(document).on('click', '.tr_ele_class' + targetTable + layoutName, function () { //JSONデータを表示した部分をクリックすると
-            const json = JSON.parse(document.getElementById(targetId + layoutName + 'Area').value || "null"); //#rankingからjsonのstringをGET
+            const json = JSON.parse(document.getElementById(elementId + layoutName + 'Area').value || "null"); //#rankingからjsonのstringをGET
             let index = $('.tr_ele_class' + targetTable + layoutName).index(this); //クリックした要素の順番を割り出す
             //  let varValue = json[0][Object.keys(json[0])[index]][0].value; //valueを取り出す
             //let jsonTxt = JSON.stringify(json[0].test[0]);
@@ -226,14 +239,14 @@ function fireFuncJson(targetTable, targetId, layoutName) {
 //json[0][keys[i]][0].link
 /*
 ROLE：表示するHTMLをJSで作成する関数兼HTMLへ表示する関数のインターフェース
-HOWTO:targetIdにはstringで
+HOWTO:elementIdにはstringで
 01107 開始時スプリットレイアウトにしたい。。
 */
-function createHtml(targetId, layoutName) {
+function createHtml(elementId, layoutName) {
     $(function () {
-        $(targetId).css('display', 'table-cell');
-        //$('targetId').load("add.html"); //HTMLを追加する
-        $(targetId).append('\
+        $(elementId).css('display', 'table-cell');
+        //$('elementId').load("add.html"); //HTMLを追加する
+        $(elementId).append('\
         <!-- 01103 aタグ追加　JSONデータをダウンロードできるようにしたい 01106 ダウンロードできるようになった --> \
         <a id="download' + layoutName + '" download="ranking.json"> <button id="Form2Export' + layoutName + '">Form2Export</button> </a>\
         \

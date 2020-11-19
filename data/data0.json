@@ -7,7 +7,7 @@
         }],
         "splitter": [{
             "value": 0,
-            "life": 0,
+            "life": 1,
             "link": "dummy.com"
         }],
         "test": [{
