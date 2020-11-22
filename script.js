@@ -1,11 +1,3 @@
-/* let pubRankingJson = {};
-let pubSettingJson = {};
- */
-//json2Interface('ranking.json', 'setting.json', '#add_left_html_area', 'left');
-//json2Interface('ranking.json', 'setting.json', '#add_right_html_area', 'right');
-/* setJson('../data/data0.json', 'dataJson0');
-setJson('../data/data1.json', 'dataJson1'); */
-
 firstSetup();
 
 function firstSetup() {
@@ -19,9 +11,9 @@ function firstSetup() {
     });
 };
 
-function splitter() {
+function splitter(elementId, layoutName) {
     $(function () {
-        if (getJsonData('0') === 0) {
+        if (getJsonData(elementId, layoutName) === 0) {
             console.log(getJsonData('test'));
         }
         console.log('splitter');
@@ -45,30 +37,42 @@ function setJson(jsonLink, elementId) {
     });
 };
 
-function getJsonData(layoutName) {
+function getJsonData(elementId, layoutName) {
     let result = $(function () {
-        const str = document.getElementById("dataJson" + layoutName + "Area").value;
+        //const str = document.getElementById("dataJson" + layoutName + "Area").value;
+        const json = JSON.parse(document.getElementById(elementId + layoutName + 'Area').value || "null"); //#rankingからjsonのstringをGET
+        let index = 0;
+        let varValue = json[0][Object.keys(json[0])[index]][0].value; //valueを取り出す
+        let str = json[0][Object.keys(json[0])[index]][0].value;
+        //let str = $('#' + "dataJson" + layoutName + "Area").val();
         const blob = new Blob([str], {
             type: 'text/plain'
         });
         const reader = new FileReader();
         reader.onload = function () {
-            console.log(reader.result);
+            //console.log(reader.result);
         };
         reader.readAsText(blob);
         result = blob;
+        console.log(json);
+        console.log(varValue);
+        console.log(str);
+        console.log(result);
     });
-    console.log(result);
+    //console.log(result);
+
     return result;
+
+
 };
 
 
 
 
-function splitterBtn(layoutName) {
+function splitterBtn(elementId, layoutName) {
     $(function () {
         $(document).on('click', 'button[id="Split_Btn' + layoutName + '"]', function () { //SET DATA Form2Export
-            splitter();
+            splitter(elementId, layoutName);
         });
     });
 }
@@ -203,13 +207,9 @@ function counter(targetTable, elementId, layoutName) {
             const json = JSON.parse(document.getElementById(elementId + layoutName + 'Area').value || "null"); //#rankingからjsonのstringをGET
             let index = $('.tr_ele_class' + targetTable + layoutName).index(this); //クリックした要素の順番を割り出す
             let varValue = json[0][Object.keys(json[0])[index]][0].value; //valueを取り出す
-            //json[0][index][0].value = json[0][index][0].value + 1; //順番に合わせてカウントしたデータ作成
             json[0][Object.keys(json[0])[index]][0].value = varValue + 1;
             document.getElementById(elementId + layoutName + 'Area').value = JSON.stringify(json, null, "\t"); //JSONデータへ更新カウンターデータを詰め直し
-            //document.getElementById("ranking" + layoutName).value = varValue; //JSONデータへ更新カウンターデータを詰め直し
-            //  countValue = json[index].value;
             json2Table(json, targetTable, layoutName); // JSONを再表示
-            // console.log(json[0][index][0].value);
 
         });
     });
