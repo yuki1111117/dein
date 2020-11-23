@@ -15,8 +15,6 @@ function firstSetup(jsonLink, jsonName, layoutName, areaName) {
 }
 
 function splitter(bool) {
-  //console.log(elementId);
-  //console.log(jsonName);
   if (bool === true) {
     $("#add_right_html_area").children().show();
   } else if (bool === false) {
@@ -29,9 +27,6 @@ function splitterBtn(jsonName, layoutName) {
     "click",
     'button[id="splitBtn' + layoutName + '"]',
     function () {
-      /*    console.log(elementId);
-      console.log(layoutName); */
-      //console.log(jsonName);
       const jsonLayoutName = jsonName + "0";
       if (getJsonData(jsonLayoutName, "splitter", "life") === 0) {
         setJsonData(jsonLayoutName, "splitter", "life", 1);
@@ -91,7 +86,7 @@ function interface(rankingJson, elementId, layoutName) {
   //counter("rankingTable", "dataJson", layoutName); //カウンターの設定
   counterBtn("rankingTable", "dataJson", layoutName); //カウンターの設定
   fireFuncJson("rankingTable", "dataJson", layoutName); //json no functionを設定
-  change2SaveJson(rankingJson, layoutName);
+  change2SaveJson("rankingTable", "dataJson", layoutName);
   json2Table(rankingJson, "rankingTable", layoutName);
   splitterBtn("dataJson", layoutName);
   modeChangeBtn("dataJson", layoutName);
@@ -124,9 +119,7 @@ function form2Export(layoutName) {
         type: "text/plain",
       });
       const reader = new FileReader();
-      reader.onload = function () {
-        console.log(reader.result);
-      };
+      reader.onload = function () {};
       reader.readAsText(blob);
       const a = document.getElementById("download" + layoutName);
       a.href = window.URL.createObjectURL(blob);
@@ -184,11 +177,7 @@ function json2Table(targetJson, targetTable, layoutName) {
       '<tr id="tr_ele' + targetTable + layoutName + '"></tr>'
     ); /* 追加したtableにthを追加する */
     $("#tr_ele" + targetTable + layoutName).append(
-      "<th>" +
-        '<div id="test" contenteditable="true">' +
-        "value" +
-        "</div>" +
-        "</th>"
+      "<th>" + '<div  contenteditable="true">' + "value" + "</div>" + "</th>"
     );
     $("#tr_ele" + targetTable + layoutName).append(
       "<th>" + '<div contenteditable="true">' + "name" + "</div>" + "</th>"
@@ -240,7 +229,6 @@ function json2Table(targetJson, targetTable, layoutName) {
           "</div>" +
           "</td>"
       );
-      //console.log(Object.keys(targetJson[0]).length);
     }
   });
 }
@@ -259,9 +247,7 @@ function counter(targetTable, jsonName, layoutName, index, bool) {
   ); //#rankingからjsonのstringをGET
   //let index = $(".tr_ele_class" + targetTable + layoutName).index(this); //クリックした要素の順番を割り出す
   //let index = 0;
-  console.log(index);
   let varValue = json[0][Object.keys(json[0])[index]][0].value; //valueを取り出す
-  console.log(varValue);
   json[0][Object.keys(json[0])[index]][0].value = varValue + 1;
   document.getElementById(
     jsonName + layoutName + "Area"
@@ -288,7 +274,6 @@ function counterBtn(targetTable, jsonName, layoutName) {
 
       let index = $(".tr_ele_class" + targetTable + layoutName).index(this); //クリックした要素の順番を割り出す
       counter(targetTable, jsonName, layoutName, index, bool);
-      // console.log("counter");
     }
   );
 }
@@ -309,8 +294,6 @@ function fireFuncJson(targetTable, elementId, layoutName) {
         ); //#rankingからjsonのstringをGET
         let index = $(".tr_ele_class" + targetTable + layoutName).index(this); //クリックした要素の順番を割り出す
         //  let varValue = json[0][Object.keys(json[0])[index]][0].value; //valueを取り出す
-        //let jsonTxt = JSON.stringify(json[0].test[0]);
-        //let jsonTxt = JSON.stringify(json[0]['test'][0]);
         let jsonTxt = JSON.stringify(json[0][Object.keys(json[0])[index]][0]);
         let parser = function (k, v) {
           return v.toString().indexOf("function") === 0
@@ -324,7 +307,6 @@ function fireFuncJson(targetTable, elementId, layoutName) {
   });
 }
 
-//json[0][keys[i]][0].link
 /*
 ROLE：表示するHTMLをJSで作成する関数兼HTMLへ表示する関数のインターフェース
 HOWTO:elementIdにはstringで
@@ -387,19 +369,20 @@ function modeChangeBtn(jsonName, layoutName) {
 }
 /* 01111 contenteditableで変更したデータを保存用JSONに反映したい....失敗してる。。。
  */
-function change2SaveJson(json, layoutName) {
-  $(function () {
-    for (let i = 0; i < json.length; i++) {
-      //jsonのデータをまるごと表示する
-      $(document).on("input", ".test", function () {
-        //
-        console.log("input");
-      });
+function change2SaveJson(targetTable, jsonName, layoutName) {
+  //jsonのデータをまるごと表示する
+  $(document).on(
+    "keyup",
+    ".tr_ele_class" + targetTable + layoutName,
+    function () {
+      //JSONデータを表示した部分をクリックすると
+      const json = JSON.parse(
+        document.getElementById(jsonName + layoutName + "Area").value || "null"
+      ); //#rankingからjsonのstringをGET
+      let index = $(".tr_ele_class" + targetTable + layoutName).index(this); //クリックした要素の順番を割り出す
+      console.log(index);
     }
-    $(document).on("input", ".test", function () {
-      console.log("input");
-    });
-  });
+  );
 }
 
 /* 01115 https://qiita.com/riversun/items/60307d58f9b2f461082a#%E9%85%8D%E5%88%97%E3%81%AE%E8%A6%81%E7%B4%A0%E4%B8%AD%E8%BA%AB%E3%81%AF%E7%B5%90%E5%90%88concat%E3%81%97%E3%81%AA%E3%81%84%E5%A0%B4%E5%90%88
