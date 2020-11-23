@@ -6,7 +6,7 @@ function firstSetup(jsonLink, jsonName, layoutName, areaName) {
     setJson(jsonLink, jsonName);
     json2Interface(jsonLink, "#" + areaName, layoutName);
     $("body").append('<div id="' + areaName + '" class="split_area"></div>');
-    $("body").append('<div id="' + jsonName + '"></div>');
+    $("#" + areaName).append('<div id="' + jsonName + '"></div>');
     $("#" + jsonName).css("display", "inline");
     $("#" + jsonName).append(
       '<textarea id="' + jsonName + 'Area" rows="24" cols="80"></textarea>'
@@ -14,12 +14,35 @@ function firstSetup(jsonLink, jsonName, layoutName, areaName) {
   });
 }
 
-function splitter(elementId, layoutName) {
-  $(function () {
-    console.log("splitter");
-    console.log(getJsonData(elementId + layoutName));
-    $("#dataJson0").children().remove();
-  });
+function splitter(bool) {
+  //console.log(elementId);
+  //console.log(jsonName);
+  if (bool === true) {
+    $("#add_right_html_area").children().show();
+  } else if (bool === false) {
+    $("#add_right_html_area").children().hide();
+  }
+}
+
+function splitterBtn(jsonName, layoutName) {
+  $(document).on(
+    "click",
+    'button[id="Split_Btn' + layoutName + '"]',
+    function () {
+      /*    console.log(elementId);
+      console.log(layoutName); */
+      //console.log(jsonName);
+      const jsonLayoutName = jsonName + "0";
+      if (getJsonData(jsonLayoutName, "splitter", "life") === 0) {
+        setJsonData(jsonLayoutName, "splitter", "life", 1);
+        splitter(true);
+      } else if (getJsonData(jsonLayoutName, "splitter", "life") === 1) {
+        setJsonData(jsonLayoutName, "splitter", "life", 0);
+        splitter(false);
+      }
+    }
+  );
+  //});
 }
 
 function setJson(jsonLink, jsonName) {
@@ -30,21 +53,24 @@ function setJson(jsonLink, jsonName) {
   });
 }
 
-function getJsonData(elementId, layoutName) {
-  let result = 0;
-  return result;
+function getJsonData(idLayoutNamePart, keyName, valueKeyName) {
+  const json = JSON.parse(
+    document.getElementById(idLayoutNamePart + "Area").value || "null"
+  );
+  let varValue = json[0][keyName][0][valueKeyName]; //value
+  return varValue;
 }
 
-function splitterBtn(elementId, layoutName) {
-  $(function () {
-    $(document).on(
-      "click",
-      'button[id="Split_Btn' + layoutName + '"]',
-      function () {
-        splitter(elementId, layoutName);
-      }
-    );
-  });
+function setJsonData(idLayoutNamePart, keyName, valueKeyName, setValue) {
+  const json = JSON.parse(
+    document.getElementById(idLayoutNamePart + "Area").value || "null"
+  );
+  json[0][keyName][0][valueKeyName] = setValue;
+  document.getElementById(idLayoutNamePart + "Area").value = JSON.stringify(
+    json,
+    null,
+    "\t"
+  ); //JSONデータへ更新データを詰め直し
 }
 
 function json2Interface(rankingJsonLink, elementId, layoutName) {
@@ -62,28 +88,20 @@ function interface(rankingJson, elementId, layoutName) {
   form2Export(layoutName); //Form2Formボタンの設定
   focusAllSelect(layoutName); //全選択の設定
   textarea2ClipBoard(layoutName); //コピーの設定
-  //rankingTableBtn(layoutName); //ランキングテーブル初期化ボタンの設定
-  counter("rankingTable", "dataJson", layoutName); //カウンターの設定
-  //counter('settingTable', 'dataJson', layoutName); //カウンターの設定
+  //counter("rankingTable", "dataJson", layoutName); //カウンターの設定
+  counterBtn("rankingTable", "dataJson", layoutName); //カウンターの設定
   fireFuncJson("rankingTable", "dataJson", layoutName); //json no functionを設定
   change2SaveJson(rankingJson, layoutName);
-  //change2SaveJson(rankingJson, layoutName);
   json2Table(rankingJson, "rankingTable", layoutName);
-  //json2Table(settingJson, 'settingTable', layoutName);
-  splitterBtn(elementId, layoutName);
+  splitterBtn("dataJson", layoutName);
 }
 
-//settingJson[0].count
 /*
-01103 JSONをまずは取り出そうと昨日は色々した　ローカルで動くようにしたい
-01107 名前をつけてスプレッドレイアウトの２つ目にレイアウトに対応したい。。できたかな
+JSONをelementIdの要素へ詰める
 */
 function json2Form(json, elementId) {
-  $(function () {
-    //1 GET JSON from local
-    var h = JSON.stringify(json, null, "\t");
-    $("#" + elementId).val(h);
-  });
+  var h = JSON.stringify(json, null, "\t");
+  $("#" + elementId).val(h);
 }
 
 /*
@@ -227,33 +245,51 @@ function json2Table(targetJson, targetTable, layoutName) {
 }
 
 /*
-ROLE:テーブル内のコンテンツをクリックするとvalueのカウントを実行する
-SPEC:setting.jsonのmodeがcounterなら起動する
-01107 押したらカウントする　カウントしたらJSONの表示を更新する　セレクタはクラスでindexで順番を判断する
-01107 名前をつけてスプレッドレイアウトに対応したい。。。
-01115 setting.json lifeが０だったら機能を止める
-*/
-function counter(targetTable, elementId, layoutName) {
-  $(function () {
-    $(document).on(
-      "click",
-      ".tr_ele_class" + targetTable + layoutName,
-      function () {
-        //JSONデータを表示した部分をクリックすると
-        const json = JSON.parse(
-          document.getElementById(elementId + layoutName + "Area").value ||
-            "null"
-        ); //#rankingからjsonのstringをGET
-        let index = $(".tr_ele_class" + targetTable + layoutName).index(this); //クリックした要素の順番を割り出す
-        let varValue = json[0][Object.keys(json[0])[index]][0].value; //valueを取り出す
-        json[0][Object.keys(json[0])[index]][0].value = varValue + 1;
-        document.getElementById(
-          elementId + layoutName + "Area"
-        ).value = JSON.stringify(json, null, "\t"); //JSONデータへ更新カウンターデータを詰め直し
-        json2Table(json, targetTable, layoutName); // JSONを再表示
+ */
+function counter(targetTable, jsonName, layoutName, index, bool) {
+  //  $(function () {
+  if (bool === true) {
+  } else if (bool === false) {
+    return;
+  }
+  //JSONデータを表示した部分をクリックすると
+  const json = JSON.parse(
+    document.getElementById(jsonName + layoutName + "Area").value || "null"
+  ); //#rankingからjsonのstringをGET
+  //let index = $(".tr_ele_class" + targetTable + layoutName).index(this); //クリックした要素の順番を割り出す
+  //let index = 0;
+  console.log(index);
+  let varValue = json[0][Object.keys(json[0])[index]][0].value; //valueを取り出す
+  console.log(varValue);
+  json[0][Object.keys(json[0])[index]][0].value = varValue + 1;
+  document.getElementById(
+    jsonName + layoutName + "Area"
+  ).value = JSON.stringify(json, null, "\t"); //JSONデータへ更新カウンターデータを詰め直し
+  json2Table(json, targetTable, layoutName); // JSONを再表示
+
+  //});
+}
+
+function counterBtn(targetTable, jsonName, layoutName) {
+  $(document).on(
+    "click",
+    ".tr_ele_class" + targetTable + layoutName,
+    function () {
+      const valueKeyName = "life";
+      const keyName = "counter";
+      let bool = true;
+      const jsonLayoutName = jsonName + "0";
+
+      if (getJsonData(jsonLayoutName, keyName, valueKeyName) === 0) {
+        bool = false;
+      } else if (getJsonData(jsonLayoutName, keyName, valueKeyName) === 1) {
       }
-    );
-  });
+
+      let index = $(".tr_ele_class" + targetTable + layoutName).index(this); //クリックした要素の順番を割り出す
+      counter(targetTable, jsonName, layoutName, index, bool);
+      // console.log("counter");
+    }
+  );
 }
 
 /*
