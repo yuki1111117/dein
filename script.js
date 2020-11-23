@@ -27,7 +27,7 @@ function splitter(bool) {
 function splitterBtn(jsonName, layoutName) {
   $(document).on(
     "click",
-    'button[id="Split_Btn' + layoutName + '"]',
+    'button[id="splitBtn' + layoutName + '"]',
     function () {
       /*    console.log(elementId);
       console.log(layoutName); */
@@ -94,6 +94,7 @@ function interface(rankingJson, elementId, layoutName) {
   change2SaveJson(rankingJson, layoutName);
   json2Table(rankingJson, "rankingTable", layoutName);
   splitterBtn("dataJson", layoutName);
+  modeChangeBtn("dataJson", layoutName);
 }
 
 /*
@@ -356,13 +357,34 @@ function createHtml(elementId, layoutName) {
         '">rankingTable_Area</p> \
         \
         <!-- 01107 スプリットレイアウトのボタンを作る。。 -->\
-        <button id="Split_Btn' +
+        <button id="splitBtn' +
         layoutName +
-        '">Split</button>'
+        '">Split:</button>\
+        \
+        <!-- 01123  -->\
+        <button id="modeChangeBtn' +
+        layoutName +
+        '">Mode:Count</button>'
     );
   });
 }
 
+function modeChangeBtn(jsonName, layoutName) {
+  $(document).on(
+    "click",
+    'button[id="modeChangeBtn' + layoutName + '"]',
+    function () {
+      const jsonLayoutName = jsonName + "0";
+      if (getJsonData(jsonLayoutName, "counter", "life") === 0) {
+        setJsonData(jsonLayoutName, "counter", "life", 1);
+        $("#" + "modeChangeBtn" + layoutName).text("Mode:Count");
+      } else if (getJsonData(jsonLayoutName, "counter", "life") === 1) {
+        setJsonData(jsonLayoutName, "counter", "life", 0);
+        $("#" + "modeChangeBtn" + layoutName).text("Mode:Insert");
+      }
+    }
+  );
+}
 /* 01111 contenteditableで変更したデータを保存用JSONに反映したい....失敗してる。。。
  */
 function change2SaveJson(json, layoutName) {
