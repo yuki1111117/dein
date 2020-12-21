@@ -42,8 +42,8 @@ function splitterBtn(jsonName, layoutName) {
 
 function setJson(jsonLink, jsonName) {
   $(function () {
-    $.when($.getJSON(jsonLink)).done((dataJson) => {
-      json2Form(dataJson, jsonName + "Area");
+    $.when($.getJSON(jsonLink)).done((jsonData) => {
+      json2Value(jsonData, jsonName + "Area");
     });
   });
 }
@@ -95,8 +95,8 @@ function interface(rankingJson, elementId, layoutName) {
 /*
 JSONをelementIdの要素へ詰める
 */
-function json2Form(json, elementId) {
-  var h = JSON.stringify(json, null, "\t");
+function json2Value(jsonData, elementId) {
+  var h = JSON.stringify(jsonData, null, "\t");
   $("#" + elementId).val(h);
 }
 
@@ -370,19 +370,11 @@ function modeChangeBtn(jsonName, layoutName) {
 /* 01111 contenteditableで変更したデータを保存用JSONに反映したい....失敗してる。。。
  */
 function change2SaveJson(targetTable, jsonName, layoutName) {
-  //jsonのデータをまるごと表示する
-  $(document).on(
-    "keyup",
-    ".tr_ele_class" + targetTable + layoutName,
-    function () {
-      //JSONデータを表示した部分をクリックすると
-      const json = JSON.parse(
-        document.getElementById(jsonName + layoutName + "Area").value || "null"
-      ); //#rankingからjsonのstringをGET
-      let index = $(".tr_ele_class" + targetTable + layoutName).index(this); //クリックした要素の順番を割り出す
-      console.log(index);
-    }
-  );
+  $(document).on("click", "#table_ele" + targetTable + layoutName, function () {
+    var td_now = $(this).text();
+    console.log(jsonName);
+    console.log(td_now);
+  });
 }
 
 /* 01115 https://qiita.com/riversun/items/60307d58f9b2f461082a#%E9%85%8D%E5%88%97%E3%81%AE%E8%A6%81%E7%B4%A0%E4%B8%AD%E8%BA%AB%E3%81%AF%E7%B5%90%E5%90%88concat%E3%81%97%E3%81%AA%E3%81%84%E5%A0%B4%E5%90%88

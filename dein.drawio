@@ -1,6 +1,6 @@
-<mxfile host="65bd71144e" modified="2020-11-23T12:33:16.455Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.51.1 Chrome/83.0.4103.122 Electron/9.3.3 Safari/537.36" etag="R0UnusYXeXTVzOSiw6cs" version="13.6.5">
+<mxfile host="65bd71144e" modified="2020-12-21T08:53:09.603Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.52.1 Chrome/83.0.4103.122 Electron/9.3.5 Safari/537.36" etag="6ZF22zwG4w-vNwfKO1M-" version="13.10.0" type="embed">
     <diagram id="HkZog31dI36jXlr5OeSE" name="Page-1">
-        <mxGraphModel dx="836" dy="1643" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1769" dy="1150" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -40,25 +40,25 @@
                 <mxCell id="63" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="62" target="61" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="66" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="62" target="5">
+                <mxCell id="66" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="62" target="5" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="68" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="62" target="67">
+                <mxCell id="68" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="62" target="67" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="62" value="&lt;div style=&quot;color: rgb(225 , 228 , 232) ; background-color: rgb(36 , 41 , 46) ; font-family: &amp;#34;consolas&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px ; line-height: 19px&quot;&gt;&lt;span style=&quot;color: #b392f0&quot;&gt;json2Interface&lt;/span&gt;(&lt;span style=&quot;color: #ffab70&quot;&gt;rankingJsonLink&lt;/span&gt;,&amp;nbsp;&lt;span style=&quot;color: #ffab70&quot;&gt;elementId&lt;/span&gt;,&amp;nbsp;&lt;span style=&quot;color: #ffab70&quot;&gt;layoutName&lt;/span&gt;)&amp;nbsp;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="90" y="600" width="450" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="64" value="&lt;div style=&quot;color: rgb(225 , 228 , 232) ; background-color: rgb(36 , 41 , 46) ; font-family: &amp;#34;consolas&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px ; line-height: 19px&quot;&gt;&lt;span style=&quot;color: #b392f0&quot;&gt;json2Form&lt;/span&gt;(&lt;span style=&quot;color: #ffab70&quot;&gt;json&lt;/span&gt;,&amp;nbsp;&lt;span style=&quot;color: #ffab70&quot;&gt;elementId&lt;/span&gt;)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="64" value="&lt;div style=&quot;color: rgb(225 , 228 , 232) ; background-color: rgb(36 , 41 , 46) ; font-family: &amp;#34;consolas&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px ; line-height: 19px&quot;&gt;&lt;span style=&quot;color: #b392f0&quot;&gt;json2Value&lt;/span&gt;(&lt;span style=&quot;color: #ffab70&quot;&gt;jsonData&lt;/span&gt;,&amp;nbsp;&lt;span style=&quot;color: #ffab70&quot;&gt;elementId&lt;/span&gt;)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="10" y="270" width="260" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="67" value="&lt;div style=&quot;color: rgb(225 , 228 , 232) ; background-color: rgb(36 , 41 , 46) ; font-family: &amp;#34;consolas&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px ; line-height: 19px&quot;&gt;&lt;span style=&quot;color: #b392f0&quot;&gt;splitterBtn&lt;/span&gt;(&lt;span style=&quot;color: #ffab70&quot;&gt;elementId&lt;/span&gt;,&amp;nbsp;&lt;span style=&quot;color: #ffab70&quot;&gt;layoutName&lt;/span&gt;)&amp;nbsp;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="67" value="&lt;div style=&quot;color: rgb(225 , 228 , 232) ; background-color: rgb(36 , 41 , 46) ; font-family: &amp;#34;consolas&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px ; line-height: 19px&quot;&gt;&lt;span style=&quot;color: #b392f0&quot;&gt;splitterBtn&lt;/span&gt;(&lt;span style=&quot;color: #ffab70&quot;&gt;elementId&lt;/span&gt;,&amp;nbsp;&lt;span style=&quot;color: #ffab70&quot;&gt;layoutName&lt;/span&gt;)&amp;nbsp;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="80" y="830" width="310" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="69" value="&lt;div style=&quot;color: rgb(225 , 228 , 232) ; background-color: rgb(36 , 41 , 46) ; font-family: &amp;#34;consolas&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px ; line-height: 19px&quot;&gt;&lt;span style=&quot;color: #b392f0&quot;&gt;change2SaveJson&lt;/span&gt;(&lt;span style=&quot;color: #ffab70&quot;&gt;json&lt;/span&gt;,&amp;nbsp;&lt;span style=&quot;color: #ffab70&quot;&gt;layoutName&lt;/span&gt;)&amp;nbsp;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="69" value="&lt;div style=&quot;color: rgb(225 , 228 , 232) ; background-color: rgb(36 , 41 , 46) ; font-family: &amp;#34;consolas&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px ; line-height: 19px&quot;&gt;&lt;span style=&quot;color: #b392f0&quot;&gt;change2SaveJson&lt;/span&gt;(&lt;span style=&quot;color: #ffab70&quot;&gt;json&lt;/span&gt;,&amp;nbsp;&lt;span style=&quot;color: #ffab70&quot;&gt;layoutName&lt;/span&gt;)&amp;nbsp;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="190" y="970" width="310" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="70" value="&lt;div style=&quot;color: rgb(225 , 228 , 232) ; background-color: rgb(36 , 41 , 46) ; font-family: &amp;#34;consolas&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px ; line-height: 19px&quot;&gt;&lt;span style=&quot;color: #b392f0&quot;&gt;mergeDeeply&lt;/span&gt;(&lt;span style=&quot;color: #ffab70&quot;&gt;target&lt;/span&gt;,&amp;nbsp;&lt;span style=&quot;color: #ffab70&quot;&gt;source&lt;/span&gt;,&amp;nbsp;&lt;span style=&quot;color: #ffab70&quot;&gt;opts&lt;/span&gt;)&amp;nbsp;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="70" value="&lt;div style=&quot;color: rgb(225 , 228 , 232) ; background-color: rgb(36 , 41 , 46) ; font-family: &amp;#34;consolas&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px ; line-height: 19px&quot;&gt;&lt;span style=&quot;color: #b392f0&quot;&gt;mergeDeeply&lt;/span&gt;(&lt;span style=&quot;color: #ffab70&quot;&gt;target&lt;/span&gt;,&amp;nbsp;&lt;span style=&quot;color: #ffab70&quot;&gt;source&lt;/span&gt;,&amp;nbsp;&lt;span style=&quot;color: #ffab70&quot;&gt;opts&lt;/span&gt;)&amp;nbsp;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="20" y="910" width="330" height="40" as="geometry"/>
                 </mxCell>
             </root>
