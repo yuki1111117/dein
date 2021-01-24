@@ -1,0 +1,31 @@
+/* #copy_alert {
+    display: none;
+  } */
+
+
+  table {
+    border-collapse: collapse;
+    border: solid 2px orange;/*表全体を線で囲う*/
+  }
+  table th, table td {
+    border: dashed 1px orange;/**/
+    /*破線 1px オレンジ*/
+  }
+  table th{/*thに対して*/
+    padding: 10px;/*上下左右10pxずつ*/
+    color: #FF9800;/*文字色*/
+    background: #fff5e5;/*背景色*/
+  }
+
+  table td {/*table内のtdに対して*/
+    padding: 3px 10px;/*上下3pxで左右10px*/
+  }
+
+  /* 01107 スプレッドレイアウトの設定 */
+.split_area {
+display: table-cell;
+}
+/* 01107 スプレッドレイアウトの設定でボタンを押すまで非表示 */
+#add_right_html_area {
+  display: none;
+}

@@ -1,0 +1,20 @@
+[
+    {
+        "counter": [{
+            "value": 0,
+            "life": 1,
+            "link": "dummy.com"
+        }],
+        "splitter": [{
+            "value": 0,
+            "life": 1,
+            "link": "dummy.com"
+        }],
+        "test": [{
+            "value": 0,
+            "life": 0,
+            "link": "dummy.com",
+            "function" : "function() { console.log('hello world'); }"
+        }]
+    }
+]
