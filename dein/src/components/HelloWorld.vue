@@ -101,7 +101,7 @@ export default defineComponent({
   name: "HelloWorld",
   data() {
     return {
-      msg: "TEST TEST TEST",
+      msg: "Hello",
     };
   },
 });
