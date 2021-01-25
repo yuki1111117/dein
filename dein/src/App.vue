@@ -1,24 +1,17 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <Test msg="TEST TEST TEST" />
-  <AxiosTest></AxiosTest>
-  <HelloWorld />
+  <HelloWorld msg="Welcome to Your Vue.js App" />
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script>
 import HelloWorld from "./components/HelloWorld.vue";
-import Test from "./components/Test.vue";
-import AxiosTest from "./components/AxiosTest.vue";
 
-export default defineComponent({
+export default {
   name: "App",
   components: {
-    HelloWorld,
-    Test,
-    AxiosTest,
-  },
-});
+    HelloWorld
+  }
+};
 </script>
 
 <style>
