@@ -1,6 +1,7 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <Test msg="TEST TEST TEST" />
+  <AxiosTest></AxiosTest>
   <HelloWorld />
 </template>
 
@@ -8,12 +9,14 @@
 import { defineComponent } from "vue";
 import HelloWorld from "./components/HelloWorld.vue";
 import Test from "./components/Test.vue";
+import AxiosTest from "./components/AxiosTest.vue";
 
 export default defineComponent({
   name: "App",
   components: {
     HelloWorld,
     Test,
+    AxiosTest,
   },
 });
 </script>
